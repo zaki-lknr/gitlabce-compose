@@ -1,0 +1,18 @@
+---
+version: '3'
+services:
+  gitlab-registry:
+    image: gitlab/gitlab-ce:12.7.4-ce.0
+    hostname: gitlab-ce.example.org
+    restart: always
+    ports:
+      - "8443:8443"
+      - "25000:25000"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: "external_url 'https://gitlab-ce.example.org:8443'; nginx['listen_port']=8443; gitlab_rails['registry_enabled']=true; registry_external_url 'https://gitlab-ce.example.org:25000'"
+    volumes:
+      - /opt/gitlab-reg/config:/etc/gitlab:Z
+      - /opt/gitlab-reg/logs:/var/log/gitlab:Z
+      - /opt/gitlab-reg/data:/var/opt/gitlab:Z
+      - /opt/gitlab-reg/registry:/var/opt/gitlab/gitlab-rails/shared/registry:Z
+      - /opt/gitlab-cert:/etc/gitlab/ssl
