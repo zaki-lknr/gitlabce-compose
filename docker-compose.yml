@@ -16,6 +16,8 @@ services:
       - /opt/gitlab-reg/data:/var/opt/gitlab:Z
       - /opt/gitlab-reg/registry:/var/opt/gitlab/gitlab-rails/shared/registry:Z
       - /opt/gitlab-cert:/etc/gitlab/ssl
+    networks:
+      - gitlab-network
   gitlab-runner:
     image: gitlab/gitlab-runner:v12.7.1
     restart: always
@@ -23,3 +25,8 @@ services:
       - /opt/gitlab-runner/config:/etc/gitlab-runner:Z
       - /var/run/docker.sock:/var/run/docker.sock
       - /opt/gitlab-cert:/etc/gitlab-runner/certs
+    networks:
+      - gitlab-network
+
+networks:
+  gitlab-network:
