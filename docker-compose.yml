@@ -1,7 +1,7 @@
 ---
 version: '3'
 services:
-  gitlab-registry:
+  gitlab-ce.example.org:
     image: gitlab/gitlab-ce:12.7.4-ce.0
     hostname: gitlab-ce.example.org
     restart: always
@@ -16,3 +16,10 @@ services:
       - /opt/gitlab-reg/data:/var/opt/gitlab:Z
       - /opt/gitlab-reg/registry:/var/opt/gitlab/gitlab-rails/shared/registry:Z
       - /opt/gitlab-cert:/etc/gitlab/ssl
+  gitlab-runner:
+    image: gitlab/gitlab-runner:v12.7.1
+    restart: always
+    volumes:
+      - /opt/gitlab-runner/config:/etc/gitlab-runner:Z
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/gitlab-cert:/etc/gitlab-runner/certs
