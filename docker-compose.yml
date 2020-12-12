@@ -8,8 +8,9 @@ services:
     ports:
       - "8443:8443"
       - "25000:25000"
+      - "25022:22"
     environment:
-      GITLAB_OMNIBUS_CONFIG: "external_url 'https://gitlab-ce.example.org:8443'; nginx['listen_port']=8443; gitlab_rails['registry_enabled']=true; registry_external_url 'https://gitlab-ce.example.org:25000'"
+      GITLAB_OMNIBUS_CONFIG: "external_url 'https://gitlab-ce.example.org:8443'; nginx['listen_port']=8443; gitlab_rails['gitlab_shell_ssh_port'] = 25022; gitlab_rails['registry_enabled']=true; registry_external_url 'https://gitlab-ce.example.org:25000'"
     volumes:
       - /opt/gitlab-reg/config:/etc/gitlab:Z
       - /opt/gitlab-reg/logs:/var/log/gitlab:Z
